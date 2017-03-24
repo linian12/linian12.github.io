@@ -416,179 +416,12 @@
       
         
           
-          Ajax简单的GET请求函数12345678910111213141516171819202122232425262728function ajax(url,fnSucc,fnFaild)&#123;//url地址	//创建ajax对象	var oAjax=null;	if(window.XMLHttpRequest)&#123;//用一个不存在的变量会出错，用一个不存在的属性，仅会出现undefined		oAjax=new XMLHttpRequest();	&#125;else&#123;		oAjax=new ActiveXObject('Microsoft.XMLHTTP');//兼容IE6	&#125;	//连接服务器	//open(方法，url，是否异步)	//同步一件件来做	//异步多件事一起	oAjax.open("GET",url,true);	// 发送请求	oAjax.send();	// 接受服务器返回信息	oAjax.onreadystatechange=function()&#123;//类似于window.onload服务器中有状态变化时		if(oAjax.readyState==4)&#123;//告诉我们ajax与服务器间的通信达到哪一步			if(oAjax.status==200)&#123;//是否成功				fnSucc(oAjax.responseText);//文件的内容			&#125;else&#123;				if(fnFaild)&#123;					fnFaild();				&#125;			&#125;		&#125;	&#125;;&#125;
-改造1234567891011121314151617181920212223242526272829303132333435363738394041424344454647function ajax(url,options)&#123;	//1.创建对象	var oAjax = null;	try&#123;		oAjax = new XMLHttpRequest();	&#125;	catch(e)&#123;		oAjax = new ActiveXObject('Microsoft.XMLHTTP');	&#125;	//2.连接服务器	var param = "";//请求参数	var data = options.data?options.data:-1;//缓存data	if(typeof(data) === "object") &#123;//限制data格式，保持键值对的格式		for(var key in data)&#123;			if(data.hasOwnProperty(key)) &#123;				param += key + '=' + data[key] + "&amp;";//=号连接键与值			&#125;		&#125;		param.replace(/&amp;$/,"");//去除结尾的&amp;	&#125;	else&#123;		param = "t" + new Date().getTime();//或者Math.random()	&#125;	//3.发送请求	var method = options.method?options.method.toUpperCase():"GET";    if(method ==="GET")&#123;    	oAjax.open("GET",url+'?'+param,true);    	oAjax.send();    &#125;else&#123;    	oAjax.open("POST",url,true);//post请求提交数据时，请求参数不跟在url后面    	oAjax.setRequestHeader("Content-type","application/x-www-form-urlencoded");    	oAjax.send(param);//在open和send直接添加头信息    &#125;    //4接受返回    oAjax.onreadystatechange = function()&#123;    	if(oAjax.readyState==4)&#123;    		if(oAjax.status==200)&#123;    			options.onsuccess(oAjax.responseText,oAjax);    		&#125;else&#123;    			if(options.onfail)&#123;    				options.onfail
+          Ajax简单的GET请求函数12345678910111213141516171819202122232425262728function ajax(url,fnSucc,fnFaild)&#123;//url地址	//创建ajax对象	var oAjax=null;	if(window.XMLHttpRequest)&#123;//用一个不存在的变量会出错，用一个不存在的属性，仅会出现undefined		oAjax=new XMLHttpRequest();	&#125;else&#123;		oAjax=new ActiveXObject(&apos;Microsoft.XMLHTTP&apos;);//兼容IE6	&#125;	//连接服务器	//open(方法，url，是否异步)	//同步一件件来做	//异步多件事一起	oAjax.open(&quot;GET&quot;,url,true);	// 发送请求	oAjax.send();	// 接受服务器返回信息	oAjax.onreadystatechange=function()&#123;//类似于window.onload服务器中有状态变化时		if(oAjax.readyState==4)&#123;//告诉我们ajax与服务器间的通信达到哪一步			if(oAjax.status==200)&#123;//是否成功				fnSucc(oAjax.responseText);//文件的内容			&#125;else&#123;				if(fnFaild)&#123;					fnFaild();				&#125;			&#125;		&#125;	&#125;;&#125;
+改造1234567891011121314151617181920212223242526272829303132333435363738394041424344454647function ajax(url,options)&#123;	//1.创建对象	var oAjax = null;	try&#123;		oAjax = new XMLHttpRequest();	&#125;	catch(e)&#123;		oAjax = new ActiveXObject(&apos;Microsoft.XMLHTTP&apos;);	&#125;	//2.连接服务器	var param = &quot;&quot;;//请求参数	var data = options.data?options.data:-1;//缓存data	if(typeof(data) === &quot;object&quot;) &#123;//限制data格式，保持键值对的格式		for(var key in data)&#123;			if(data.hasOwnProperty(key)) &#123;				param += key + &apos;=&apos; + data[key] + &quot;&amp;&quot;;//=号连接键与值			&#125;		&#125;		param.replace(/&amp;$/,&quot;&quot;);//去除结尾的&amp;	&#125;	else&#123;		param = &quot;t&quot; + new Date().getTime();//或者Math.random()	&#125;	//3.发送请求	var method = options.method?options.method.toUpperCase():&quot;GET&quot;;    if(method ===&quot;GET&quot;)&#123;    	oAjax.open(&quot;GET&quot;,url+&apos;?&apos;+param,true);    	oAjax.send();    &#125;else&#123;    	oAjax.open(&quot;POST&quot;,url,true);//post请求提交数据时，请求参数不跟在url后面    	oAjax.setRequestHeader(&quot;Content-type&quot;,&quot;application/x-www-form-urlencoded&quot;);    	oAjax.send(param);//在open和send直接添加头信息    &#125;    //4接受返回    oAjax.onreadystatechange = function()&#123;    	if(oAjax.readyState==4)&#123
           ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/10/Ajax封装/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/02/name/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="gigi">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/0.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="GIGI">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="GIGI" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/02/name/" itemprop="url">
-                  Hexo之NexT主题搭建博客详细过程
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-02T11:46:28+08:00">
-                2017-02-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/02/02/name/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/02/name/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-          
-             <span id="/2017/02/02/name/" class="leancloud_visitors" data-flag-title="Hexo之NexT主题搭建博客详细过程">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读量 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/02/name/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -817,7 +650,7 @@ More info: Deployment
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -826,7 +659,7 @@ More info: Deployment
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
