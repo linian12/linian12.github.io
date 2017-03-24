@@ -415,10 +415,7 @@
 
       
         
-          
-          Ajax简单的GET请求函数1234567891011121314151617181920212223242526272829function ajax(url,fnSucc,fnFaild)&#123;//url地址	//创建ajax对象	var oAjax=null;	if(window.XMLHttpRequest)&#123;//用一个不存在的变量会出错，用一个不存在的属性，仅会出现undefined		oAjax=new XMLHttpRequest();	&#125;else&#123;		oAjax=new ActiveXObject(&apos;Microsoft.XMLHTTP&apos;);//兼容IE6	&#125;	//连接服务器	//open(方法，url，是否异步)	//同步一件件来做	//异步多件事一起	oAjax.open(&quot;GET&quot;,url,true);	// 发送请求	oAjax.send();	// 接受服务器返回信息	oAjax.onreadystatechange=function()&#123;//类似于window.onload服务器中有状态变化时		if(oAjax.readyState==4)&#123;//告诉我们ajax与服务器间的通信达到哪一步			if(oAjax.status==200)&#123;//是否成功				fnSucc(oAjax.responseText);//文件的内容			&#125;else&#123;				if(fnFaild)&#123;					fnFaild();				&#125;			&#125;		&#125;	&#125;;&#125;
-改造1234567891011121314151617181920212223242526272829303132333435363738394041424344454647function ajax(url,options)&#123;	//1.创建对象	var oAjax = null;	try&#123;		oAjax = new XMLHttpRequest();	&#125;	catch(e)&#123;		oAjax = new ActiveXObject(&apos;Microsoft.XMLHTTP&apos;);	&#125;	//2.连接服务器	var param = &quot;&quot;;//请求参数	var data = options.data?options.data:-1;//缓存data	if(typeof(data) === &quot;object&quot;) &#123;//限制data格式，保持键值对的格式		for(var key in data)&#123;			if(data.hasOwnProperty(key)) &#123;				param += key + &apos;=&apos; + data[key] + &quot;&amp;&quot;;//=号连接键与值			&#125;		&#125;		param.replace(/&amp;$/,&quot;&quot;);//去除结尾的&amp;	&#125;	else&#123;		param = &quot;t&quot; + new Date().getTime();//或者Math.random()	&#125;	//3.发送请求	var method = options.method?options.method.toUpperCase():&quot;GET&quot;;    if(method ===&quot;GET&quot;)&#123;    	oAjax.open(&quot;GET&quot;,url+&apos;?&apos;+param,true);    	oAjax.send();    &#125;else&#123;    	oAjax.open(&quot;POST&quot;,url,true);//post请求提交数据时，请求参数不跟在url后面    	oAjax.setRequestHeader(&quot;Content-type&quot;,&quot;application/x-www-form-urlencoded&quot;);    	oAjax.send(param);//在open和send直接添加头信息    &#125;    //4接受返回    oAjax.onreadystatechange = function()&#123;    	if(oAjax.readyState==4)&#1
-          ...
+          <h3 id="Ajax简单的GET请求函数"><a href="#Ajax简单的GET请求函数" class="headerlink" title="Ajax简单的GET请求函数"></a>Ajax简单的GET请求函数</h3>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/10/Ajax封装/#more" rel="contents">
@@ -562,24 +559,17 @@
       
         
           
-          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new "My New Post"
-More info: Writing
-Run server1$ hexo server
-More info: Server
-Generate static files1$ hexo generate
-More info: Generating
-Deploy to remote sites1$ hexo deploy
-More info: Deployment
+            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/02/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
